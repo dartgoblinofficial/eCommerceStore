@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+      <title>Shopping Cart</title>
+      <meta name="keywords" content="">
+      <meta name="description" content="">
+      <meta name="author" content="">
+
+      <link rel="stylesheet" href="css/bootstrap.min.css">
+      <link rel="stylesheet" href="css/style.css">
+      <link rel="stylesheet" href="css/responsive.css">
+    </head>
+   <body class="main-layout">
+	<form action="dashboard">
+	<div class="header_section">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-3">
+					<div class="logo"><a href="/dashboard"><img src="images/logo.png"></a></div>
+				</div>
+				<div class="col-sm-9">
+					<nav class="navbar navbar-expand-lg navbar-light bg-light">
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                        </button>
+                    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                        <div class="navbar-nav" th:each="userFound:${userName}">
+                           <a class="nav-item nav-link" href="dashboard">Home</a>
+                           <a class="nav-item nav-link" href="shoes">Shoes</a>
+							<a class="nav-item nav-link" href="cart" th:text="${userFound.lastName}"></a>
+                           <a class="nav-item nav-link " href="cart"><img src="images/shop_icon.png"></a>
+							<a class="nav-item nav-link" href="login-page">Log-out</a>
+                        </div>
+                    </div>
+                    </nav>
+				</div>
+			</div>
+		</div>
+	</div>
+		<div class="banner_section">
+			<div class="container-fluid">
+				<section class="slide-wrapper">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <div class="row">
+					<div class="col-sm-2 padding_0">
+					</div>
+					<div class="col-sm-5">
+						<div class="banner_taital">
+							<h1 class="banner_text">eCommerce Demo Application </h1>
+							<a href="shoes"> <button class="more_bt">See More</button></a>
+						</div>
+					</div>
+
+					<div class="col-sm-5">
+						<div class="shoes_img"><img src="images/running-shoes.png"></div>
+					</div>
+				</div>
+                </div>
+					</div>
+</section>
+			</div>
+		</div>
+	</div>
+		<div class="layout_padding gallery_section">
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-4">
+						<div class="best_shoes" th:each="product:${listaProduse}">
+							<h1 class="best_text" th:text="${product.name}"></h1>
+							<p class="best_text" th:text="${product.description}"></p>
+							<div class="shoes_icon">
+								<div class="images_div">
+									<img th:src="${product.image}">
+								</div>
+							</div>
+							<div class="star_text">
+								<div class="left_part">
+									<div class="buy_now_bt">
+										<button class="buy_text">Buy</button>
+									</div>
+								</div>
+								<div class="right_part">
+									<div class="shoes_price"><span style="color: #ff4e5b;" th:text="${product.price}"></span><p>Points</p>
+										<p></p></div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+   	</form>
+
+   </body>
+</html>

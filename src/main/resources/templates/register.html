@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="css/login-style.css">
+    <link rel="stylesheet" href="css/style.css">
+
+</head>
+<body>
+
+<div class="log-form">
+    <h2>Register your new account</h2>
+    <form action = "registration-form">
+        <input name="email" type="email" placeholder="E-mail">
+        <input name="username" type="text" placeholder="username" />
+        <input name="password" type="password"  placeholder="password" />
+        <input name="password-again" type="password" placeholder="password-again">
+        <input name="firstName" type="text" placeholder="First Name"/>
+        <input name="lastName" type="text" placeholder="Last Name"/>
+        <input name="phone" type="text" placeholder="Phone Number">
+        <input name="address" type="text" placeholder="Address">
+        <button type="submit" class="btn">Register</button>
+        <a href="/login-page"><button type="button" class="btn">Am cont deja</button> </a>
+        <p th:text="${message}" style="color:red;"></p>
+
+    </form>
+</div>
+</div>
+
+</body>
+</html>

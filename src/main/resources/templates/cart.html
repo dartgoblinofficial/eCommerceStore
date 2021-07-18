@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<form action="cart">
+<table id="cart">
+    <tr>
+        <th>Product</th>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Qty</th>
+        <th>Price</th>
+    </tr>
+    <tr th:each="product:${shoppingList}">
+        <td th:src="${product.image}"></td>
+        <td th:text="${product.name}"></td>
+        <td th:text="${product.description}"></td>
+        <td >
+            <div class="col col-qty layout-inline">
+                <a href="#" class="qty qty-minus">-</a>
+                <input type="numeric" value="3" />
+                <a href="#" class="qty qty-plus">+</a>
+            </div>
+        </td>
+        <td th:text="${product.price}"></td>
+    </tr>
+</table>
+</form>
+</body>
+</html>

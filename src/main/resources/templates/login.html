@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="css/login-style.css">
+    <link rel="stylesheet" href="css/style.css">
+
+</head>
+<body>
+<div class="log-form">
+    <h2>Login to your account</h2>
+    <form action="login">
+        <p class="error" th:text="${message}"></p>
+        <input name="username" type="text" placeholder="username"/>
+        <input name="password" type="password"  placeholder="password" />
+        <button type="submit" class="btn">Login</button>
+        <a href="/register">
+            <button type="button" class="btn">Register</button></a>
+        <a class="forgot" href="#">Forgot Password?</a>
+    </form>
+</div>
+</div>
+
+</body>
+</html>

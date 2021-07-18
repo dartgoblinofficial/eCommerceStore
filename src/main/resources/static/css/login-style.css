@@ -1,0 +1,81 @@
+
+.log-form{
+
+}
+form {
+    display: block;
+    width: 100%;
+    padding: 2em;
+  }
+
+  h2 {
+    width: 100%;
+    color: FD4D5A;
+    font-family: 'open sans condensed';
+    font-size: 1.35em;
+    display: block;
+    background:@grey;
+    width: 100%;
+    text-transform: uppercase;
+    padding: .75em 1em .75em 1.5em;
+    box-shadow:inset 0px 1px 1px fadeout(white, 95%);
+    border: 1px solid darken(@grey, 5%);
+    //text-shadow: 0px 1px 1px darken(@grey, 5%);
+    margin: 0;
+    font-weight: 200;
+  }
+
+  input {
+    display: block;
+    margin: auto auto;
+    width: 100%;
+    margin-bottom: 2em;
+    padding: .5em 0;
+    border: none;
+    border-bottom: 1px solid #eaeaea;
+    padding-bottom: 1.25em;
+    color: #757575;
+    &:focus {
+      outline: none;
+    }
+  }
+
+  .btn {
+    display: inline-block;
+    background: @blue;
+    border: 1px solid darken(@blue, 80%);
+    padding: .5em 2em;
+    color: white;
+    margin-right: .5em;
+    box-shadow: inset 0px 1px 0px fadeout(white, 80%);
+    &:hover {
+      background-color: #FD4D5A;
+    }
+    &:active {
+      background: @blue;
+      box-shadow: inset 0px 1px 1px fadeout(black, 90%);
+    }
+    &:focus {
+      outline: none;
+    }
+  }
+
+  .forgot {
+    color: lighten(@blue, 10%);
+    line-height: .5em;
+    position: relative;
+    top: 2.5em;
+    text-decoration: none;
+    font-size: .75em;
+    margin:0;
+    padding: 0;
+    float: right;
+
+    &:hover {
+      color:darken(@blue, 5%);
+    }
+    &:active{
+    }
+  }
+
+}
