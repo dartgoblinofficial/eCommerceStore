@@ -59,7 +59,7 @@
 						<div class="star_text">
 							<div class="left_part">
 								<div class="buy_now_bt">
-									<button class="btn">Buy</button>
+									<a th:href="@{/addToCart/{id}(id=${product.id})}" type="button" class="btn">Buy</a>
 								</div>
 							</div>
 							<div class="right_part">
@@ -67,6 +67,7 @@
 								<p></p></div>
 							</div>
 						</div>
+
 					</div>
 				</div>
 

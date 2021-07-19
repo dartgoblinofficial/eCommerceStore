@@ -1,8 +1,10 @@
 package com.example.eCommerceStore.pojo;
 
 
-import javax.persistence.*;
+import org.springframework.stereotype.Component;
 
+import javax.persistence.*;
+@Component
 @Entity
 @Table(name = "products")
 public class Product {
