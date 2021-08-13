@@ -10,8 +10,8 @@ form {
 
   h2 {
     width: 100%;
-    color: FD4D5A;
-    font-family: 'open sans condensed';
+    color: #8CC540;
+    font-family: 'Montserrat';
     font-size: 1.35em;
     display: block;
     background:@grey;
@@ -45,11 +45,11 @@ form {
     background: @blue;
     border: 1px solid darken(@blue, 80%);
     padding: .5em 2em;
-    color: white;
+    color: 151925;
     margin-right: .5em;
     box-shadow: inset 0px 1px 0px fadeout(white, 80%);
     &:hover {
-      background-color: #FD4D5A;
+      background-color: #8CC540;
     }
     &:active {
       background: @blue;
@@ -64,7 +64,7 @@ form {
     color: lighten(@blue, 10%);
     line-height: .5em;
     position: relative;
-    top: 2.5em;
+    top: 0.5em;
     text-decoration: none;
     font-size: .75em;
     margin:0;

@@ -9,7 +9,9 @@ import com.example.eCommerceStore.security.UserSession;
 import com.example.eCommerceStore.service.CartService;
 import com.example.eCommerceStore.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -32,9 +34,9 @@ public class ProductController {
 @Autowired
     CartDAO cartDAO;
 
-    @GetMapping("/shoes")
+    @GetMapping("/shop")
     public ModelAndView items(){
-        ModelAndView modelAndView = new ModelAndView("shoes");
+        ModelAndView modelAndView = new ModelAndView("shop");
         List<User> userList = userDAO.findById(userSession.getId());
         modelAndView.addObject("userName", userList);
         List<Product> productList =
@@ -45,23 +47,31 @@ public class ProductController {
 
     @GetMapping("/admin")
     public ModelAndView admin(){
-        return new ModelAndView("admin");
+        ModelAndView modelAndView = new ModelAndView("admin");
+        List<Product> productList = productService.findAll();
+        modelAndView.addObject("listaProduse",productList);
+        return modelAndView;
     }
 
     @GetMapping("/admin-page")
-    public  String addItems(@RequestParam("name")String name,
-                            @RequestParam("price")Double price,
-                            @RequestParam("image") String img,
-                            @RequestParam("description")String description) {
+    public String addItems(@RequestParam("name")String name,
+                          @RequestParam("price")Double price,
+                          @RequestParam("image") String img,
+                          @RequestParam("description")String description) {
+
         productService.saveProduct(name, img, price, description);
+
     return "redirect:/admin";
     }
 
-//    @GetMapping("shoes{id}")
-//    public ModelAndView addInTheCart(@PathVariable("id") int id){
-//       Product product = productDAO.findById(id);
-//       cartService.addToCart(product);
-//
-//    }
+    @DeleteMapping("/admin-page/delete/{id}")
+    public ModelAndView deleteProduct(@PathVariable("id")int id){
+        ModelAndView modelAndView = new ModelAndView("admin");
+        productService.deleteProductById(id);
+
+        return modelAndView;
+
+    }
+
 
 }

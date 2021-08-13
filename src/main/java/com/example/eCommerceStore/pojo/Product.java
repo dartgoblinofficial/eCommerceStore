@@ -1,24 +1,28 @@
 package com.example.eCommerceStore.pojo;
-
-
-import org.springframework.stereotype.Component;
-
 import javax.persistence.*;
-@Component
+
 @Entity
 @Table(name = "products")
 public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-
+    private Integer id;
     private String name;
     private String description;
     private double price;
-    @OneToOne(cascade = CascadeType.ALL)
-    private Category category;
     private String image;
+
+    @ManyToOne(cascade = CascadeType.ALL, targetEntity = Cart.class)
+    @JoinColumn(name = "product_id")
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public String getImage() {
         return image;
@@ -26,14 +30,6 @@ public class Product {
 
     public void setImage(String image) {
         this.image = image;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -60,11 +56,15 @@ public class Product {
         this.price = price;
     }
 
-    public Category getCategory() {
-        return category;
-    }
 
-    public void setCategory(Category category) {
-        this.category = category;
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", price=" + price +
+                ", image='" + image + '\'' +
+                '}';
     }
 }

@@ -52,7 +52,7 @@ public class CartController {
         cartService.addToCart(product);
 
 
-        return "redirect:/cart";
+        return "redirect:/shop";
     }
 
 

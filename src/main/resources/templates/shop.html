@@ -8,7 +8,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="viewport" content="initial-scale=1, maximum-scale=1">
 	<!-- site metas -->
-	<title>Shoes</title>
+	<title>Shop</title>
 	<meta name="keywords" content="">
 	<meta name="description" content="">
 	<meta name="author" content="">
@@ -18,12 +18,12 @@
 	<link rel="stylesheet" href="css/style.css">
 </head>
 <body class="main-layout">
-<form action="shoes">
+<form action="shop">
 	<div class="header_section">
 		<div class="container">
 			<div class="row">
 				<div class="col-sm-3">
-					<div class="logo"><a href="/dashboard"><img src="images/logo.png"></a></div>
+					<div class="logo"><a href="/dashboard"><img src="images/Produce-Delivery-LA.png"></a></div>
 				</div>
 				<div class="col-sm-9">
 					<nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -33,7 +33,7 @@
 						<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 						<div class="navbar-nav" th:each="userFound:${userName}">
 							<a class="nav-item nav-link" href="dashboard">Home</a>
-							<a class="nav-item nav-link" href="shoes">Shoes</a>
+							<a class="nav-item nav-link" href="shop">Shop</a>
 							<a class="nav-item nav-link" href="" th:text="${userFound.lastName}"></a>
 							<a class="nav-item nav-link " href=""><img src="images/shop_icon.png"></a>
 							<a class="nav-item nav-link" href="login-page">Log-out</a>
@@ -63,7 +63,7 @@
 								</div>
 							</div>
 							<div class="right_part">
-								<div class="shoes_price"><span style="color: #ff4e5b;" th:text="${product.price}"></span><p>Points</p>
+								<div class="shoes_price"><span style="color: #88C540;" th:text="${product.price}"></span><p>Points</p>
 								<p></p></div>
 							</div>
 						</div>

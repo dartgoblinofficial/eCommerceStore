@@ -3,11 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/login-style.css">
 </head>
 <body>
 
 <form action="cart">
-<table id="cart">
+<table class="table table-bordered">
     <tr>
         <th>Product</th>
         <th>Name</th>
@@ -15,7 +18,7 @@
         <th>Qty</th>
         <th>Price</th>
     </tr>
-    <tr th:each="product:${shoppingList}">
+    <tr th:each="product:${shoppingCart}">
         <td th:src="${product.image}"></td>
         <td th:text="${product.name}"></td>
         <td th:text="${product.description}"></td>

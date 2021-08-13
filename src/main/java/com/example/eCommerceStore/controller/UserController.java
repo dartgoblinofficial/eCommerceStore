@@ -3,25 +3,22 @@ package com.example.eCommerceStore.controller;
 
 import com.example.eCommerceStore.dao.ProductDAO;
 import com.example.eCommerceStore.dao.UserDAO;
-import com.example.eCommerceStore.pojo.Product;
 import com.example.eCommerceStore.pojo.User;
 import com.example.eCommerceStore.security.UserSession;
+import com.example.eCommerceStore.service.MailService;
 import com.example.eCommerceStore.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 public class UserController {
+    @Autowired
+    MailService mailService;
     @Autowired
     ProductDAO productDAO;
     @Autowired
@@ -30,6 +27,8 @@ public class UserController {
     UserService userService;
     @Autowired
     UserSession userSession;
+    @Autowired
+    private JavaMailSender emailSender;
 
     @GetMapping("/dashboard")
     public ModelAndView dashboard() {
@@ -37,9 +36,6 @@ public class UserController {
 
         List<User> userList = userDAO.findById(userSession.getId());
         modelAndView.addObject("userName", userList);
-        List<Product> productList =
-                (List<Product>) productDAO.findAll();
-        modelAndView.addObject("listaProduse", productList);
         return modelAndView;
     }
 
@@ -48,7 +44,7 @@ public class UserController {
     return new ModelAndView("register");
     }
 
-    @GetMapping("/registration-form")
+    @RequestMapping(value ="/registration-form", method = RequestMethod.POST)
     public ModelAndView register(@RequestParam("email") String email,
                                  @RequestParam("username") String username,
                                  @RequestParam("password") String password,
@@ -61,7 +57,6 @@ public class UserController {
         ModelAndView modelAndView = new ModelAndView("register");
 
 
-        //Verificam daca email-ul este deja inregistrat
         if (!userService.checkEmail(email)) {
             modelAndView.addObject("message", "Email deja inregistrat!");
             return modelAndView;
@@ -74,7 +69,7 @@ public class UserController {
 
     }
 
-    @GetMapping("/login")
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
     public ModelAndView login(@RequestParam("username") String username,
                               @RequestParam("password") String password) {
 
@@ -97,5 +92,22 @@ public class UserController {
     @GetMapping("/login-page")
     public ModelAndView loginView(){
         return new ModelAndView("login");
+    }
+
+    @GetMapping("/login/forgot")
+    public ModelAndView modelAndView(){
+        return new ModelAndView("forgot");
+    }
+    @GetMapping("/login/forgot/sendPw")
+    public ModelAndView sendSimpleMessage(@RequestParam("emailTo")String to) {
+        ModelAndView modelAndView2 = new ModelAndView("forgot");
+        if (!userService.checkEmail(to)) {
+            String newPassword = userService.generatePassword();
+            mailService.sendEmail(newPassword, to);
+        }else {
+            modelAndView2.addObject("message", "email-ul nu este inregistrat");
+            return modelAndView2;
+        }
+        return new ModelAndView("redirect:/login-page");
     }
 }

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Forgot Password</title>
+    <link rel="stylesheet" href="/css/login-style.css">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<div class="log-form">
+    <h2>Provide you email address asociated with your account</h2>
+    <form action="/login/forgot/sendPw">
+        <input type="text" name="emailTo" placeholder="your email"/>
+        <button type="submit" class="btn">Send</button>
+        <p th:text="${message}" style="color:red;"></p>
+
+    </form>
+
+</div>
+</div>
+
+</body>
+</html>

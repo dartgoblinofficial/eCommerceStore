@@ -7,6 +7,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ProductService {
     @Autowired
@@ -20,9 +22,21 @@ public class ProductService {
         product.setPrice(price);
         product.setDescription(description);
         productDAO.save(product);
-        log.info("new product");
+        log.info("new product created");
         return product;
 
 
+    }
+
+    public int deleteProductById(int id) {
+        productDAO.deleteById(id);
+        return id;
+
+    }
+
+
+    public List<Product> findAll() {
+        List<Product> productList = (List<Product>) productDAO.findAll();
+        return productList;
     }
 }
