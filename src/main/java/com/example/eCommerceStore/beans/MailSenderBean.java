@@ -10,7 +10,7 @@ import java.util.Properties;
 
 public class MailSenderBean {
 
-
+//preia valorile din application.properties si le stocheaza in variabile
     @Value("${spring.mail.host}")
     String host;
     @Value("${spring.mail.port}")
@@ -19,6 +19,7 @@ public class MailSenderBean {
     String username;
     @Value("${spring.mail.password}")
     String password;
+
     @Bean
     public JavaMailSender getJavaMailSender() {
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
@@ -35,4 +36,5 @@ public class MailSenderBean {
 
         return mailSender;
     }
+
 }

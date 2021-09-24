@@ -6,12 +6,21 @@
     <link rel="stylesheet" href="/css/login-style.css">
     <link rel="stylesheet" href="/css/style.css">
 </head>
+<style>
+    // css pentru sageata
+span {
+  content: "\2190";
+  font-size: 1.4rem;
+}
+</style>
 <body>
 <div class="log-form">
-    <h2>Provide you email address asociated with your account</h2>
-    <form action="/login/forgot/sendPw">
+    <h2 class="text-muted">Adresa de email pentru resetarea parolei:</h2>
+    <form action="/login/forgot/sendPw" method="post">
         <input type="text" name="emailTo" placeholder="your email"/>
         <button type="submit" class="btn">Send</button>
+        <button type="button" class="btn"><a href="/login-page" style="color:white" ><span>&#8592</span>
+        </a></button>
         <p th:text="${message}" style="color:red;"></p>
 
     </form>

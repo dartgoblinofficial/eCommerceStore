@@ -12,7 +12,7 @@ form {
     width: 100%;
     color: #8CC540;
     font-family: 'Montserrat';
-    font-size: 1.35em;
+    font-size: 1.15em;
     display: block;
     background:@grey;
     width: 100%;
@@ -21,7 +21,7 @@ form {
     box-shadow:inset 0px 1px 1px fadeout(white, 95%);
     border: 1px solid darken(@grey, 5%);
     //text-shadow: 0px 1px 1px darken(@grey, 5%);
-    margin: 0;
+    margin: 10;
     font-weight: 200;
   }
 
@@ -42,10 +42,8 @@ form {
 
   .btn {
     display: inline-block;
-    background: @blue;
-    border: 1px solid darken(@blue, 80%);
     padding: .5em 2em;
-    color: 151925;
+    color: white;
     margin-right: .5em;
     box-shadow: inset 0px 1px 0px fadeout(white, 80%);
     &:hover {

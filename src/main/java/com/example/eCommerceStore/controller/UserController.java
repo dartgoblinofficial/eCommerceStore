@@ -1,14 +1,10 @@
 package com.example.eCommerceStore.controller;
-
-
-import com.example.eCommerceStore.dao.ProductDAO;
 import com.example.eCommerceStore.dao.UserDAO;
 import com.example.eCommerceStore.pojo.User;
 import com.example.eCommerceStore.security.UserSession;
 import com.example.eCommerceStore.service.MailService;
 import com.example.eCommerceStore.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -20,15 +16,11 @@ public class UserController {
     @Autowired
     MailService mailService;
     @Autowired
-    ProductDAO productDAO;
-    @Autowired
     UserDAO userDAO;
     @Autowired
     UserService userService;
     @Autowired
     UserSession userSession;
-    @Autowired
-    private JavaMailSender emailSender;
 
     @GetMapping("/dashboard")
     public ModelAndView dashboard() {
@@ -69,22 +61,21 @@ public class UserController {
 
     }
 
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    @PostMapping("/login")
     public ModelAndView login(@RequestParam("username") String username,
                               @RequestParam("password") String password) {
 
         ModelAndView modelAndView = new ModelAndView("login");
-        if (!userService.login(username, password)) {
-            modelAndView.addObject("message", "username sau parola gresite!");
-            return modelAndView;
 
+        if (username.isEmpty() || password.isEmpty()) {
+            modelAndView.addObject("message", "Completeaza campurile!");
+            return modelAndView;
         }
-
-        if (username==null || password==null){
-            modelAndView.addObject("message","Completeaza campurile!");
+        if (!userService.login(username, password)) {
+            modelAndView.addObject("message", "Username sau parola gresite!");
             return modelAndView;
-
-        }else {
+        }
+        else {
             return new ModelAndView("redirect:/dashboard");
         }
 
@@ -98,7 +89,8 @@ public class UserController {
     public ModelAndView modelAndView(){
         return new ModelAndView("forgot");
     }
-    @GetMapping("/login/forgot/sendPw")
+
+    @PostMapping("/login/forgot/sendPw")
     public ModelAndView sendSimpleMessage(@RequestParam("emailTo")String to) {
         ModelAndView modelAndView2 = new ModelAndView("forgot");
         if (!userService.checkEmail(to)) {

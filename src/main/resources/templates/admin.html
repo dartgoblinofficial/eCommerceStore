@@ -86,7 +86,7 @@
         <tr th:each="product:${listaProduse}">
             <td th:text="${product.id}"></td>
             <td th:text="${product.description}"></td>
-            <td th:text="${product.image}"></td>
+            <td> <img th:src="${product.image}" width="40" height="60"></td>
             <td th:text="${product.name}"></td>
             <td th:text="${product.price}"></td>
             <td> <button type="submit" th:id="${product.id}" class="btn btn-outline-danger" onclick="deleteProduct(this.id);" >
@@ -97,6 +97,9 @@
 
         </tbody>
     </table>
+        </div>
+    </table>
+
 </div>
 
 </body>

@@ -1,10 +1,9 @@
 package com.example.eCommerceStore.service;
 
 
-import com.example.eCommerceStore.dao.CartDAO;
-import com.example.eCommerceStore.dao.ProductDAO;
+import com.example.eCommerceStore.dao.CartItemDAO;
 import com.example.eCommerceStore.dao.UserDAO;
-import com.example.eCommerceStore.pojo.Cart;
+import com.example.eCommerceStore.pojo.CartItem;
 import com.example.eCommerceStore.pojo.Product;
 import com.example.eCommerceStore.pojo.User;
 import com.example.eCommerceStore.security.UserSession;
@@ -13,9 +12,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import javax.transaction.Transactional;
+import java.util.*;
 
 @Service
 public class CartService {
@@ -24,25 +22,68 @@ public class CartService {
     @Autowired
     UserDAO userDAO;
     @Autowired
-    CartDAO cartDAO;
+    CartItemDAO cartItemDAO;
     public static final Logger log = LoggerFactory.getLogger(CartService.class);
+
+    //verifica daca produsul exista deja in table CartItems
+    public boolean itemExists(Product product){
+       List<CartItem> cartItemFound = cartItemDAO.findByUserId(userSession.getId());
+        for (int i = 0; i < cartItemFound.size() ; i++) {
+            if (product.getId().equals(cartItemFound.get(i).getProductId())){
+                log.info("produsul cu id-ul "+product.getId()+" exista in cartItems");
+                return true;
+
+            }
+            return false;
+        }
+        return false;
+    }
 
     public void addToCart(Product product) {
 
         List<User> userFound = userDAO.findById(userSession.getId());
-        //Optional<Cart> cartFound = cartDAO.findById(userFound.get(0).getCart().getId());
-            List<Product> productList = new ArrayList<Product>();
-            productList.add(product);
+        List<Product> productList = new ArrayList<Product>();
+        productList.add(product);
             try{
-                userFound.get(0).getCart().setProducts(productList);
-                int quantity = userFound.get(0).getCart().getQuantity();//a cui cantitate este?
-                quantity++;
-                userFound.get(0).getCart().setQuantity(quantity);
-                userDAO.save(userFound.get(0));
-                log.info(product.getName() + " added in the " + userFound.get(0).getUsername() + "'s shopping cart! Qty: " + quantity+", CartID: "+userFound.get(0).getCart().getId()+" , Products: "+userFound.get(0).getCart().getProducts().toString());
+                int quantity=1;
+                if (!itemExists(product)){
+                    //creates new CartItem
+                    CartItem cartItem = new CartItem(userFound.get(0).getCart(),product.getId(), quantity, product.getPrice(), userFound.get(0));
+                    cartItemDAO.save(cartItem);
+
+                    log.info(product.getName() + " added in the " + userFound.get(0).getUsername()
+                            + "'s shopping cart! Qty: " + quantity+", CartID: "
+                            +userFound.get(0).getCart().getId());
+                }else {
+                    //update existent CartItem quantity in db
+                     Optional<CartItem> cartItemsList= cartItemDAO.findById(product.getId());
+                     cartItemsList.get().setQuantity(cartItemsList.get().getQuantity()+1);
+
+                    cartItemDAO.save(cartItemsList.get());
+                }
+
 
             } catch (NullPointerException e){
                 log.info("am primit un null pointer");
             }
         }
+
+
+        public void updateCart(int[] qty){
+            //aduce din bd produsele userului logat
+            List<CartItem> cartItemList = cartItemDAO.findByUserId(userSession.getId());
+
+            //atribuie fiecarui produs cantitatea primita din Array
+            for (int i = 0; i < cartItemList.size(); i++) {
+                cartItemList.get(i).setQuantity(qty[i]);
+                log.info("update qty for: "+ cartItemList.get(i)+ " new qty: "+ cartItemList.get(i).getQuantity());
+                cartItemDAO.save(cartItemList.get(i));
+
+            }
+
+        }
+    @Transactional
+    public void deleteCart(int id) {
+        cartItemDAO.deleteByUserId(id);
     }
+}

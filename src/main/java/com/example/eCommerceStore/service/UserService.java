@@ -21,8 +21,6 @@ public class UserService {
     UserDAO userDAO;
     @Autowired
     UserSession userSession;
-    @Autowired
-    CartDAO cartDAO;
 
     public List<User> findByEmail(String email){
         return userDAO.findByEmail(email);

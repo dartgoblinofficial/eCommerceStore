@@ -6,10 +6,40 @@
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/login-style.css">
+
+
+    <style>
+        .container{
+        position: absolute;
+        top:50;
+        left:50;
+        transform:translate(-50%, -50%);
+        display:flex;
+        align-items:center;
+        justify-content:space-evenly;
+        width:50px;
+        height:25px;
+        background:transparent;
+        border-radius-40px;
+        }
+
+        .btn{
+        outline:none;
+        border:none;
+        width:100px;
+        height:25px;
+        border-radius:15;
+        font-size:1.5rem;
+        background:white;
+        color:#8CC540;
+        transition:.2s;
+        }
+
+
+    </style>
 </head>
 <body>
-
-<form action="cart">
+<form action="update">
 <table class="table table-bordered">
     <tr>
         <th>Product</th>
@@ -19,19 +49,47 @@
         <th>Price</th>
     </tr>
     <tr th:each="product:${shoppingCart}">
-        <td th:src="${product.image}"></td>
+        <td><div class="images_div">
+            <img th:src="${product.image}" width="40" height="60">
+        </div></td>
         <td th:text="${product.name}"></td>
         <td th:text="${product.description}"></td>
-        <td >
-            <div class="col col-qty layout-inline">
-                <a href="#" class="qty qty-minus">-</a>
-                <input type="numeric" value="3" />
-                <a href="#" class="qty qty-plus">+</a>
-            </div>
+        <td>
+            <input name="qtys" type="number" min="1" max="10"/>
         </td>
         <td th:text="${product.price}"></td>
     </tr>
 </table>
+
+    <p style="color:white">Total de plata: </p>
+    <p th:text="${sum}" style="color:white"></p>
+    <button class="button" id="new" type="submit">Update</button>
+</form>
+<form action="finish">
+    <button class="button" type="submit">Finalizare</button>
 </form>
 </body>
+
+<script>
+
+     let count = 0;
+        let counter = document.querySelector(".counter");
+
+        counter.innerHTML= count;
+
+        document.getElementById('plus').addEventListener('click', ( ) =>{
+            count++;
+            counter.innerHTML = count;
+            console.log(counter.innerText);
+
+        });
+
+        document.getElementById('minus').addEventListener('click', ( ) =>{
+            count--;
+            count = (count<0)?0 : count;
+            counter.innerHTML = count;
+        });
+
+
+    </script>
 </html>

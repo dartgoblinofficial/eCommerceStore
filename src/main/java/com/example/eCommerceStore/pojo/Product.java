@@ -13,8 +13,7 @@ public class Product {
     private double price;
     private String image;
 
-    @ManyToOne(cascade = CascadeType.ALL, targetEntity = Cart.class)
-    @JoinColumn(name = "product_id")
+
 
     public Integer getId() {
         return id;
